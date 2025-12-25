@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sosyo-Ekonomik Sınıf Testi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50, #4a6491);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .test-info {
+            padding: 20px;
+            background-color: #f0f8ff;
+            border-bottom: 1px solid #e1e8f0;
+        }
+        
+        .info-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1rem;
+            color: #2c3e50;
+        }
+        
+        .info-text i {
+            color: #3498db;
+        }
+        
+        .question-container {
+            padding: 25px 20px;
+        }
+        
+        .question {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .question:last-of-type {
+            border-bottom: none;
+        }
+        
+        .question-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .question-number {
+            background-color: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #eaeaea;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .option:hover {
+            background-color: #edf5ff;
+            border-color: #c6daf0;
+        }
+        
+        .option.selected {
+            background-color: #e3f2fd;
+            border-color: #3498db;
+        }
+        
+        .option input {
+            margin-right: 15px;
+            transform: scale(1.3);
+        }
+        
+        .option-label {
+            font-size: 1rem;
+            color: #444;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #eaeaea;
+        }
+        
+        .btn {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-submit {
+            background: linear-gradient(to right, #27ae60, #2ecc71);
+            color: white;
+        }
+        
+        .btn-submit:hover {
+            background: linear-gradient(to right, #219653, #27ae60);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
+        }
+        
+        .btn-reset {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            border: 1px solid #dee2e6;
+        }
+        
+        .btn-reset:hover {
+            background-color: #e9ecef;
+        }
+        
+        .result-container {
+            display: none;
+            padding: 30px 20px;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .result-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .result-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .result-class {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .yoksul {
+            background-color: #ffeaea;
+            color: #c0392b;
+            border-left: 6px solid #c0392b;
+        }
+        
+        .alt-orta {
+            background-color: #fff4e6;
+            color: #e67e22;
+            border-left: 6px solid #e67e22;
+        }
+        
+        .orta {
+            background-color: #e8f4fc;
+            color: #2980b9;
+            border-left: 6px solid #2980b9;
+        }
+        
+        .ust-orta {
+            background-color: #e8f7ef;
+            color: #27ae60;
+            border-left: 6px solid #27ae60;
+        }
+        
+        .zengin {
+            background-color: #f4ecf7;
+            color: #8e44ad;
+            border-left: 6px solid #8e44ad;
+        }
+        
+        .result-details {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .result-details h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .result-details p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+        
+        .restart-btn {
+            display: block;
+            margin: 30px auto 0;
+            background: linear-gradient(to right, #3498db, #2c3e50);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .restart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+        
+        /* Mobil uyumluluk */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .question-title {
+                font-size: 1.1rem;
+            }
+            
+            .option-label {
+                font-size: 0.95rem;
+            }
+            
+            .result-class {
+                font-size: 2.2rem;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .question-container {
+                padding: 15px 10px;
+            }
+            
+            .result-details {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sosyo-Ekonomik Sınıf Testi</h1>
+            <p class="subtitle">Bu test, yaşam ve çalışma koşullarınıza göre hangi sosyo-ekonomik sınıfta yer aldığınızı belirlemek için hazırlanmıştır. Lütfen her soruyu dikkatlice okuyarak size en uygun seçeneği işaretleyin.</p>
+        </header>
+        
+        <div class="test-info">
+            <p class="info-text">
+                <i class="fas fa-info-circle"></i>
+                Test tamamlandığında size ait sosyo-ekonomik sınıfınız gösterilecektir.
+            </p>
+        </div>
+        
+        <form id="socioEconomicTest">
+            <div class="question-container">
+                <div class="question">
+                    <div class="question-title">
+                        <span class="question-number">1</span>
+                        <span>İşinizin düzenliliği nasıl?</span>
+                    </div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q1" value="1" required>
+                            <span class="option-label">Düzensiz, sık sık işsiz kalıyorum (geçici/gündelik işler)</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="2">
+                            <span class="option-label">Kısmen düzensiz, bazen işsiz kalıyorum</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="3">
+                            <span class="option-label">Düzenli ama işten çıkarılma riskim var</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="4">
+                            <span class="option-label">Tamamen düzenli ve güvenceli bir işim var</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="5">
+                            <span class="option-label">Kendi işim veya işimde tam kontrol bende</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-title">
+                        <span class="question-number">2</span>
+                        <span>Maaşınızın düzenli yatması ve gecikme durumu?</span>
+                    </div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q2" value="1" required>
+                            <span class="option-label">Çok düzensiz, aylarca maaş alamıyorum</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="2">
+                            <span class="option-label">Sık sık gecikiyor, düzensiz yatıyor</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="3">
+                            <span class="option-label">Bazen gecikiyor ama en fazla birkaç gün</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="4">
+                            <span class="option-label">Düzenli yatıyor, nadiren 1-2 gün gecikir</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="5">
+                            <span class="option-label">Tamamen düzenli veya yatırım gelirleri</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-title">
+                        <span class="question-number">3</span>
+                        <span>Sigortanızın yatırılma durumu?</span>
+                    </div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q3" value="1" required>
+                            <span class="option-label">Hiç yatırılmıyor</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="2">
+                            <span class="option-label">Bazen yatırılıyor, bazen yatırılmıyor</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="3">
+                            <span class="option-label">Düzenli yatırılıyor ama asgari ücret üzerinden</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="4">
+                            <span class="option-label">Düzenli ve tam olarak yatırılıyor</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="5">
+                            <span class="option-label">Tam ve eksiksiz, ek özel sigortalarım da var</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-title">
+                        <span class="question-number">4</span>
+                        <span>İşten çıkarılma riskiniz nedir?</span>
+                    </div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q4" value="1" required>
+                            <span class="option-label">Çok yüksek, her an işsiz kalabilirim</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="2">
+                            <span class="option-label">Yüksek, ekonomik dalgalanmalardan etkileniyorum</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="3">
+                            <span class="option-label">Orta düzeyde, belli şartlarda işten çıkarılabilirim</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="4">
+                            <span class="option-label">Düşük, güvenceli bir işim var</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="5">
+                            <span class="option-label">Yok, gelir kaynaklarım üzerinde tam kontrolüm var</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-title">
+                        <span class="question-number">5</span>
+                        <span>İş yerinde mobbing görüyor musunuz?</span>
+                    </div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q5" value="1" required>
+                            <span class="option-label">Sürekli maruz kalıyorum</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="2">
+                            <span class="option-label">Sık sık yaşıyorum</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="3">
+                            <span class="option-label">Ara sıra oluyor</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="4">
+                            <span class="option-label">Nadiren oluyor</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="5">
+                            <span class="option-label">Hiç yaşamıyorum</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-title">
+                        <span class="question-number">6</span>
+                        <span>İş kazası riskiniz nedir?</span>
+                    </div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q6" value="1" required>
+                            <span class="option-label">Çok yüksek, tehlikeli bir işte çalışıyorum</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q6" value="2">
+                            <span class="option-label">Yüksek, fiziksel riskler var</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q6" value="3">
+                            <span class="option-label">Orta düzeyde, bazen riskli durumlar oluyor</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q6" value="4">
+                            <span class="option-label">Düşük, güvenli bir iş ortamım var</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q6" value="5">
+                            <span class="option-label">Çok düşük veya yok</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-title">
+                        <span class="question-number">7</span>
+                        <span>İş kazasında yaralandınız mı?</span>
+                    </div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q7" value="1" required>
+                            <span class="option-label">Evet, defalarca yaralandım</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q7" value="2">
+                            <span class="option-label">Evet, birkaç kez yaralandım</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q7" value="3">
+                            <span class="option-label">Evet ama nadiren yaralandım</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q7" value="4">
+                            <span class="option-label">Hayır, hiç yaralanmadım</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q7" value="5">
+                            <span class="option-label">İş kazası riskim yok</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-title">
+                        <span class="question-number">8</span>
+                        <span>Konut (ev) durumunuz nasıl?</span>
+                    </div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q8" value="1" required>
+                            <span class="option-label">Çok kötü, sağlıksız koşullarda yaşıyorum</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q8" value="2">
+                            <span class="option-label">Kötü, temel yaşam gereksinimlerini sınırlı düzeyde karşılıyor</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q8" value="3">
+                            <span class="option-label">Orta, kirada veya mütevazı bir evde</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q8" value="4">
+                            <span class="option-label">İyi, kendi evim var veya kaliteli bir kira evinde</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q8" value="5">
+                            <span class="option-label">Çok iyi, lüks bir evde yaşıyorum veya birden fazla mülküm var</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-title">
+                        <span class="question-number">9</span>
+                        <span>Sağlık masraflarını karşılama durumunuz?</span>
+                    </div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q9" value="1" required>
+                            <span class="option-label">Karşılayamıyorum, sağlık hizmetlerine erişemiyorum</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q9" value="2">
+                            <span class="option-label">Zorlanarak karşılıyorum</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q9" value="3">
+                            <span class="option-label">Karşılıyorum ama bütçemi sarsıyor</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q9" value="4">
+                            <span class="option-label">Sorunsuz karşılıyorum, özel sağlık kurumlarına gidebiliyorum</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q9" value="5">
+                            <span class="option-label">Hiç sorun değil veya özel sağlık sigortam var</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-title">
+                        <span class="question-number">10</span>
+                        <span>Eğitim masraflarını karşılama durumunuz?</span>
+                    </div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q10" value="1" required>
+                            <span class="option-label">Karşılayamıyorum</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q10" value="2">
+                            <span class="option-label">Zorlanarak karşılıyorum</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q10" value="3">
+                            <span class="option-label">Karşılıyorum ama bütçemi ciddi şekilde sarsıyor</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q10" value="4">
+                            <span class="option-label">Sorunsuz karşılıyorum, özel okullara gönderme imkanlarına sahibim</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q10" value="5">
+                            <span class="option-label">Hiç sorun değil, en iyi kaynaklara sahibim</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-title">
+                        <span class="question-number">11</span>
+                        <span>Haftalık ortalama çalışma saatiniz nedir?</span>
+                    </div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q11" value="1" required>
+                            <span class="option-label">75 saat ve üzeri (günde 13-14 saat)</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q11" value="2">
+                            <span class="option-label">65-74 saat arası (günde 11-12 saat)</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q11" value="3">
+                            <span class="option-label">55-64 saat arası (günde 10-11 saat)</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q11" value="4">
+                            <span class="option-label">45-54 saat arası (günde 8-9 saat)</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q11" value="5">
+                            <span class="option-label">40 saat ve altı (günde 8 saat veya daha az)</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="buttons">
+                <button type="button" class="btn btn-reset" id="resetBtn">
+                    <i class="fas fa-redo"></i> Testi Sıfırla
+                </button>
+                <button type="submit" class="btn btn-submit">
+                    <i class="fas fa-chart-bar"></i> Sonucu Görüntüle
+                </button>
+            </div>
+        </form>
+        
+        <div class="result-container" id="resultContainer">
+            <div class="result-header">
+                <h2 class="result-title">Test Sonucunuz</h2>
+            </div>
+            
+            <div id="resultClass" class="result-class"></div>
+            
+            <div class="result-details" id="resultDetails"></div>
+            
+            <button class="restart-btn" id="restartBtn">
+                <i class="fas fa-sync-alt"></i> Testi Yeniden Yap
+            </button>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Bu test sosyo-ekonomik analiz amaçlı hazırlanmıştır. Kesin bir bilimsel değerlendirme aracı değildir.</p>
+        <p>© 2023 Sosyo-Ekonomik Sınıf Testi</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('socioEconomicTest');
+            const resultContainer = document.getElementById('resultContainer');
+            const resultClass = document.getElementById('resultClass');
+            const resultDetails = document.getElementById('resultDetails');
+            const resetBtn = document.getElementById('resetBtn');
+            const restartBtn = document.getElementById('restartBtn');
+            const options = document.querySelectorAll('.option');
+            
+            // Seçeneklere tıklanınca seçili hale getirme
+            options.forEach(option => {
+                const radioInput = option.querySelector('input[type="radio"]');
+                option.addEventListener('click', () => {
+                    // Aynı sorudaki diğer seçeneklerden seçimi kaldır
+                    const question = option.closest('.question');
+                    question.querySelectorAll('.option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Bu seçeneği seçili yap
+                    option.classList.add('selected');
+                    radioInput.checked = true;
+                });
+            });
+            
+            // Form gönderildiğinde
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Tüm soruların cevaplanıp cevaplanmadığını kontrol et
+                const allQuestionsAnswered = validateForm();
+                
+                if (!allQuestionsAnswered) {
+                    alert('Lütfen tüm soruları cevaplayınız.');
+                    return;
+                }
+                
+                // Puanları hesapla
+                const score = calculateScore();
+                
+                // Sonucu belirle
+                const result = determineClass(score);
+                
+                // Sonuçları göster
+                showResult(result);
+                
+                // Sonuç bölümüne kaydır
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Testi sıfırlama
+            resetBtn.addEventListener('click', function() {
+                form.reset();
+                document.querySelectorAll('.option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+            });
+            
+            // Testi yeniden yapma
+            restartBtn.addEventListener('click', function() {
+                form.reset();
+                document.querySelectorAll('.option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                resultContainer.style.display = 'none';
+                form.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Form doğrulama
+            function validateForm() {
+                const questions = document.querySelectorAll('.question');
+                for (let question of questions) {
+                    const radioInputs = question.querySelectorAll('input[type="radio"]');
+                    let isAnswered = false;
+                    for (let input of radioInputs) {
+                        if (input.checked) {
+                            isAnswered = true;
+                            break;
+                        }
+                    }
+                    if (!isAnswered) return false;
+                }
+                return true;
+            }
+            
+            // Puan hesaplama
+            function calculateScore() {
+                let totalScore = 0;
+                const radioInputs = document.querySelectorAll('input[type="radio"]:checked');
+                
+                radioInputs.forEach(input => {
+                    totalScore += parseInt(input.value);
+                });
+                
+                return totalScore;
+            }
+            
+            // Sınıf belirleme
+            function determineClass(score) {
+                if (score <= 20) {
+                    return {
+                        className: "Derin Yoksul / Yoksul Sınıf",
+                        class: "yoksul",
+                        jobs: "Örnek meslekler: inşaat işçisi, mevsimlik tarım işçisi, kağıt toplayıcı, hurdacı, merdiven altı fabrika işçisi, sanayi işçisi, gündelikçi, hamal, sokak satıcısı, temizlik işçisi, tarla işçisi"
+                    };
+                } else if (score <= 29) {
+                    return {
+                        className: "Alt-Orta Sınıf",
+                        class: "alt-orta",
+                        jobs: "Örnek meslekler: fabrika işçisi, belediye işçisi, kasiyer, garson"
+                    };
+                } else if (score <= 38) {
+                    return {
+                        className: "Orta Sınıf",
+                        class: "orta",
+                        jobs: "Örnek meslekler: öğretmen, polis, hemşire, memurlar"
+                    };
+                } else if (score <= 47) {
+                    return {
+                        className: "Üst-Orta Sınıf",
+                        class: "ust-orta",
+                        jobs: "Örnek meslekler: mühendis, doktor, avukat, üst düzey yönetici, akademisyen, pilot, mimar, yönetici, danışman"
+                    };
+                } else {
+                    return {
+                        className: "Zengin Sınıf",
+                        class: "zengin",
+                        jobs: "Örnek meslekler: işveren, sermaye sahibi, yatırımcı, üst düzey CEO, büyük şirket sahibi, profesyonel yatırımcı, holding yöneticisi"
+                    };
+                }
+            }
+            
+            // Sonucu gösterme
+            function showResult(result) {
+                resultClass.textContent = result.className;
+                resultClass.className = `result-class ${result.class}`;
+                
+                let detailsHTML = `<h3>Sınıfınızda Yer Alan Bazı Meslekler</h3>`;
+                detailsHTML += `<p>${result.jobs}</p>`;
+                
+                resultDetails.innerHTML = detailsHTML;
+                resultContainer.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
