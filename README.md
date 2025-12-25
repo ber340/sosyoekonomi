@@ -1,1 +1,1 @@
-# sosyoekonomiks-n-f
+
