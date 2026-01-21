@@ -460,45 +460,6 @@
             margin-bottom: 8px;
         }
         
-        .definitions-box {
-            background-color: rgba(40, 45, 70, 0.9);
-            border-radius: 10px;
-            padding: 25px;
-            margin-top: 30px;
-            border-left: 5px solid #64b5f6;
-        }
-        
-        .definitions-title {
-            font-size: 1.4rem;
-            color: #e3f2fd;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .definition-item {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px dashed rgba(100, 150, 255, 0.2);
-        }
-        
-        .definition-item:last-child {
-            border-bottom: none;
-        }
-        
-        .definition-title {
-            font-size: 1.1rem;
-            color: #bbdefb;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-        
-        .definition-text {
-            color: #d0e0ff;
-            line-height: 1.6;
-        }
-        
         /* Mobil uyumluluk */
         @media (max-width: 768px) {
             h1 {
@@ -891,6 +852,10 @@
                         <li>Çaycı vb.</li>
                     </ul>
                     <p><strong>Not:</strong> Yoksul sınıftaki işçinin sigortası çoğu zaman yatırılmaz. Yoksul işçi haftalarca/aylarca maaş alamama sorununu sık yaşar. Rutubetli, küflü, 40-50 yıllık eski harabe evlerde yaşaması da bu sınıfa ait kişilerin sağlığını fazlasıyla kötü etkiler.</p>
+                    <p><strong>Güvencesiz İş:</strong> İşten çıkartılma ve işsiz kalma riski çok yüksek olan işlerdir.</p>
+                    <p><strong>Güvenceli İş:</strong> İşten çıkarılma riskinin oldukça düşük olduğu işlerdir.</p>
+                    <p><strong>Düzensiz İş:</strong> Örnek olarak, bir hafta veya birkaç ay yoğun çalıştıktan sonra, sonraki iki hafta, iki ay hiç işin olmadığı, çalışamama durumunun yaşandığı işlere denir. İşlerde duraksama, durgunluk veya mevsimsel nedenler bu kişilerin çalışamamasına neden olur.</p>
+                    <p><strong>Ağır-Tehlikeli İş:</strong> Ağır ve tehlikeli olarak tanımlanan işler kişinin iş kazasına bağlı olarak ölme ve yaralanma riskinin fazlasıyla yüksek olduğu işlere denir. Sadece bu işlerde çalışmak bile ciddi sağlık sorunlarına neden olabilir. Bu işlerde çalışıp iş kazası geçirmemiş, yaralanmamış kişi neredeyse hiç yoktur.</p>
                 </div>
             </div>
             
@@ -908,7 +873,7 @@
                         <li>Taşeron işçi</li>
                         <li>Depo işçisi vb.</li>
                     </ul>
-                    <p><strong>Not:</strong> Alt-orta sınıftaki işçinin sigortası genellikle düzenli yatar. Maaşı en fazla birkaç gün geç yatar, yoksul sınıfa göre daha düzenlidir.</p>
+                    <p><strong>Not:</strong> Alt-orta sınıftaki işçinin sigortası genellikle düzenli yatar. Maaşı en fazla birkaç gün geç yatar, yoksul sınıfa göre maaşları ve sigortaları daha düzenlidir.</p>
                 </div>
             </div>
             
@@ -963,36 +928,13 @@
                 </div>
             </div>
         </div>
-        
-        <div class="definitions-box">
-            <h3 class="definitions-title"><i class="fas fa-info-circle"></i> İş Türleri Tanımları</h3>
-            
-            <div class="definition-item">
-                <div class="definition-title">Güvencesiz İş</div>
-                <div class="definition-text">İşten çıkartılma ve işsiz kalma riski çok yüksek olan işlerdir.</div>
-            </div>
-            
-            <div class="definition-item">
-                <div class="definition-title">Güvenceli İş</div>
-                <div class="definition-text">İşten çıkarılma riskinin oldukça düşük olduğu işlerdir.</div>
-            </div>
-            
-            <div class="definition-item">
-                <div class="definition-title">Düzensiz İş</div>
-                <div class="definition-text">Örnek olarak, bir hafta veya birkaç ay yoğun çalıştıktan sonra, sonraki iki hafta, iki ay hiç işin olmadığı, çalışamama durumunun yaşandığı işlere denir. İşlerde duraksama, durgunluk veya mevsimsel nedenler bu kişilerin çalışamamasına neden olur.</div>
-            </div>
-            
-            <div class="definition-item">
-                <div class="definition-title">Ağır-Tehlikeli İş</div>
-                <div class="definition-text">Ağır ve tehlikeli olarak tanımlanan işler kişinin iş kazasına bağlı olarak ölme ve yaralanma riskinin fazlasıyla yüksek olduğu işlere denir. Sadece bu işlerde çalışmak bile ciddi sağlık sorunlarına neden olabilir. Bu işlerde çalışıp iş kazası geçirmemiş, yaralanmamış kişi neredeyse hiç yoktur.</div>
-            </div>
-        </div>
     </div>
     
     <footer>
         <p>Sosyo-Ekonomik Sınıf Testi | Bu test gelir, birikim, konut, sağlık ve çalışma koşullarınıza göre sosyo-ekonomik sınıfınızı belirlemek için tasarlanmıştır.</p>
         <p>Sonuçlar genel bir değerlendirme olup, kesin bir kategori olarak değerlendirilmemelidir.</p>
     </footer>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
